@@ -22,7 +22,7 @@ export default {
     // 1.第一种判断是否注册app
     //判断是否有token
           let token = this.token
-         this.util.ajax.post('/admin/users/bqCount.do?token=a306d11e-fd07-4d74-9c77-ac63976b9607').then(e=>{
+         this.util.ajax.post('/admin/users/bqCount.do').then(e=>{
             
          if(e.code == 200){
            let state = e.data.status

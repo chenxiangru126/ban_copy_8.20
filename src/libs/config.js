@@ -3,7 +3,7 @@ import {isAndroidOrIos} from './tools';
 const get_usr_info=resolve=>{
     if(isAndroidOrIos()==-1||/localhost/.test(location.href)){
         common_param = {
-             token: "59d31948-8260-4707-8d86-2759e2bd71bd ",
+             token: "29b7c656-f264-4f1a-ba2a-58af2e77efad",
          
         };
     }else{
