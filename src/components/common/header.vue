@@ -69,10 +69,27 @@
                     this.$router.push({name:'search'})  
                 }
             },
-            back_event(){
-                 
-                 history.back();
-                   
+             back_event(){
+                 //判断页面是版权信息填写时，如果以实名认证跳转到app首页
+                if(this.route_name=='ban_copy'){
+                    this.util.ajax.post('/admin/sysUserReal/getId.do').then(e=>{  
+                        if(e.code ==200){
+                            try {
+                                
+                                iosObject.closeHtml();
+                            } catch (error) {
+                                    
+                                // alert(error);
+                            }
+                        }else if(e.code == 500){
+                            history.back();
+                        }
+                    })
+                }else if(this.route_name=='ban_copy'){
+
+                }else{
+                    history.back();
+                }
             },
              back_ios() {
                 try {

@@ -75,37 +75,37 @@
       <div class="upload_img">
         <!-- 主图和附图 -->
         
-         <div class="upload_master " style="border-bottom: .0625rem solid #BFBFBF;border-right: .0625rem solid #BFBFBF;" @click="show_list(null,'one')">
-         <div class="no_img" v-show="!url_list.one">
+         <div class="upload_master " style="border-bottom: .0625rem solid #BFBFBF;border-right: .0625rem solid #BFBFBF;" @click="show_list('one')">
+         <div class="no_img" v-show="!url_list_one">
          <img src="../../static/images/add_img.png" alt="">
          </div>
-         <div class="has_img" v-show="url_list.one">
-            <img :src="url_list.one" alt="" id="img_one"> 
+         <div class="has_img" v-show="url_list_one">
+            <img :src="url_list_one" alt="" > 
          </div>
          </div>
          <div class="upload_branch">
-          <div class="upload_img_two item" style="border-bottom: .0625rem solid #BFBFBF;" @click="show_img(null,'two')">
-         <div class="no_img" v-show="!url_list.two">
+          <div class="upload_img_two item" style="border-bottom: .0625rem solid #BFBFBF;" @click="show_img('two')">
+         <div class="no_img" v-show="!url_list_two">
          <img src="../../static/images/add_img.png" alt="">
          </div>
-          <div class="has_img" v-show="url_list.two">
-            <img :src="url_list.two" alt="" id="img_two"> 
+          <div class="has_img" v-show="url_list_two">
+            <img :src="url_list_two" alt="" id="img_two"> 
          </div>
          </div>
-          <div class="upload_img_three item" style="border-right: .0625rem solid #BFBFBF;" @click="show_img_two(null,'three')">
-         <div class="no_img"  v-show="!url_list.three">
+          <div class="upload_img_three item" style="border-right: .0625rem solid #BFBFBF;" @click="show_img_two('three')">
+         <div class="no_img"  v-show="!url_list_three">
          <img src="../../static/images/add_img.png" alt="">
          </div>
-          <div class="has_img" v-show="url_list.three">
-            <img :src="url_list.three" alt="" id="img_three"> 
+          <div class="has_img" v-show="url_list_three">
+            <img :src="url_list_three" alt="" id="img_three"> 
          </div>
          </div>
-             <div class="upload_img_four item" @click="show_img_three(null,'four')">
-         <div class="no_img" v-show="!url_list.four">
+             <div class="upload_img_four item" @click="show_img_three('four')">
+         <div class="no_img" v-show="!url_list_four">
          <img src="../../static/images/add_img.png" alt="">
          </div>
-          <div class="has_img" v-show="url_list.four">
-            <img :src="url_list.four" alt="" id="img_four"> 
+          <div class="has_img" v-show="url_list_four">
+            <img :src="url_list_four" alt="" id="img_four"> 
          </div>
          </div>
     </div>
@@ -128,10 +128,11 @@
             </div>
     </div> 
     <!-- 点击upload上传作品 -->
-        <upload v-if="show_select_upload" @close_upload ="close"></upload>
+        <!-- <upload v-if="show_select_upload" @close_upload ="close"></upload> -->
          <!-- 切换子路由 -->
-         <router-view class="child_view"></router-view>  
-   
+         <!-- <router-view class="child_view"></router-view>   -->
+        <!-- 1.上传照相机的input -->
+         <input type="file" class="hide file" accept="image/*" @change="upload_img">
 </div>
  
      
@@ -173,8 +174,12 @@ export default {
          art_name:null, // 存证作品名
          art_person:null, //存证者
          art_text:null,// 存证的描述
-
-      
+         url_list_one:null, //上传图片一
+         url_list_two:null,//上传图片二
+         url_list_three:null,//上传图片三
+         url_list_four:null,//上传图片四
+         url_list_five:null,//上传图片五
+         num:null//传入参数num
         
         }
     },
@@ -187,54 +192,66 @@ export default {
         },
     methods:{
           
-             show_list(img_url,num){   
+            show_list(num){
                 this.num = num;
-                this.show_select_upload = true; 
-                if(num == null){
-                  this.show_select_upload = false; 
-                //存放到对象
-                   this.url_list.one = img_url   
+                const file = document.querySelector(".file");
+                file.click();      
+            },
+            show_img(num){
+                const file = document.querySelector(".file");
+                file.click(); 
+                this.num = num;
+                // this.show_select_upload = true; 
+                //  if(num == null){
+                //   this.show_select_upload = false; 
+                //    //存放到对象中
+                //    this.url_list.two = img_url;       
+                // } 
+               
+            },
+            show_img_two(num){
+                const file = document.querySelector(".file");
+                file.click(); 
+                this.num = num;
+            },
+            show_img_three(num){
+                const file = document.querySelector(".file");
+                file.click(); 
+                this.num = num;
+                     
+            },
+            show_img_four(num){
+              const file = document.querySelector(".file");
+              file.click(); 
+              this.num = num;      
+            },
+            upload_img(e) {
+                var num = this.num;
+                let formData = new FormData();
+                formData.append('file', e.target.files[0]);
+                formData.append('type', 'test');
+                // 发送异步请求，把formData发送异步请求
+                this.util.ajax.post("/admin/authCopyright/upload.do", formData).then(e => {
+                    
+                     //返回的参数
+                     if(num == 'one'){
+                        this.url_list_one = e.path
+                     }else if(num =='two'){
+                        this.url_list_two = e.path
 
-                }                 
+                     }else if(num =='three'){
+                        this.url_list_three = e.path
+
+                     }else if(num == 'four'){
+                         this.url_list_four = e.path
+         
+                     }else if(num == 'five'){
+                         this.url_list_five = e.path
+                    //  this.show_img_four(e.path);  
+                    }                     
+                }).catch()
             },
-            show_img(img_url,num){
-                this.num = num;
-                this.show_select_upload = true; 
-                 if(num == null){
-                  this.show_select_upload = false; 
-                   //存放到对象中
-                   this.url_list.two = img_url;       
-                } 
-               
-            },
-            show_img_two(img_url,num){
-                this.num = num;
-                this.show_select_upload = true; 
-                 if(num == null){
-                  this.show_select_upload = false; 
-                    //存放到对象中
-                   this.url_list.three = img_url        
-                }  
-               
-            },
-            show_img_three(img_url,num){
-                this.num = num;
-                this.show_select_upload = true; 
-                if(num == null){
-                  this.show_select_upload = false; 
-                     //存放到对象中
-                   this.url_list.four = img_url    
-                }          
-            },
-            show_img_four(img_url,num){
-              this.num = num;
-                this.show_select_upload = true; 
-                if(num == null){
-                  this.show_select_upload = false; 
-                     //存放到对象中
-                   this.url_list.five = img_url      
-                }          
-            },
+
             close(){
                this.show_select_upload =false;
             },
@@ -335,7 +352,7 @@ export default {
                 {id: 23, name: '家居设计'},
                 {id: 24, name: '厨具用品'},
                 {id: 25, name: '灯饰灯具'},
-                {id: 26, name: '家居软装灯饰灯具'},
+                {id: 26, name: '家居软装'},
                 {id: 27, name: '家具配饰'},
              
                    
@@ -348,10 +365,10 @@ export default {
                 {id: 33, name: '鞋帽'},
                 {id: 34, name: '箱包'},
                 {id: 35, name: '珠宝首饰'},         
-            ]},{id: 8, name: '设计产品', list: [
+            ]},{id: 8, name: '产品设计', list: [
                 {id: 36, name: '交通运输'},
                 {id: 37, name: '办公用品'},
-                {id: 38, name: '家用家电'},
+                {id: 38, name: '家用电器'},
                 {id: 39, name: '数码电子'},
                 {id: 40, name: '智能设备'},
                       

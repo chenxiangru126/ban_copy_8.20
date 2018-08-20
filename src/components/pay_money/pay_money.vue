@@ -3,7 +3,7 @@
     <div class="reg2_wrap">
     <!-- 交保证金 -->
    <div class="reg2_content">
-      <div>版权确权证书申请费</div>
+      <div>版权登记证书申请费</div>
       <p><span>¥</span><span>99.0</span></p>
       <div class="reg2_contnet_con">
        <span @click="submit_e(1)"></span>

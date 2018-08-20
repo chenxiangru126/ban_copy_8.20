@@ -44,8 +44,17 @@ export default {
         })
 // .catch()
     },
-    com_ban(){
-      this.$router.push('/qiye')
+    com_ban(){ //判断企业是否实名
+         this.util.ajax.post('/admin/sysUserReal/getId.do').then(e => {
+            if( e.code == 500){
+                //未实名
+                this.$router.push('/qiye')
+            }else if( e.code == 200){
+                // 已实名
+                this.$router.push('/ban_copy')
+
+            }
+        })
     }
   }
     
