@@ -143,6 +143,7 @@ const config = {
         // target: 'http://59.110.169.175:8080',
             target: 'http://test.bjyishubiyeji.com:8080',
         //  target: 'https://yddwechat.bjyishubiyeji.com:8443',
+          //666
 
         changeOrigin: true,
         secure: false
