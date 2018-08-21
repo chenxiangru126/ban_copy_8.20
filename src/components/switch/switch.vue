@@ -8,26 +8,20 @@
 
 <script>
 import util from '../../libs/util'
-import {
-  isAndroidOrIos
-} from '../../libs/tools';
-import {
-  mapState
-} from 'vuex';
 /* 
 1.判断是否是第一次，浏览版权说明页面，如果不是，页面不显示，得到状态值，这个是前提
 2.判断是否实名认证，如果实名认证的话，得到状态值，
    跳转到上传页面，没有实名认证的话跳转到选择类型页面，得到状态值
 */
 export default {
-  data(){
-    return{
-      isIos: isAndroidOrIos() == 1 ? true : false,
-    }
-  },
-  computed: mapState(
-    ['title_name','route_name']
-  ),
+//  data(){
+////    return{
+////      isIos: isAndroidOrIos() == 1 ? true : false,
+////    }
+//  },
+//  computed: mapState(
+//    ['title_name','route_name']
+//  ),
     created(){
      var that = this
 
@@ -35,22 +29,16 @@ export default {
     mounted(){
     // 1.第一种判断是否注册app
     //判断是否有token
-          let token = this.token
+
          this.util.ajax.post('/admin/users/bqCount.do').then(e=>{
             
          if(e.code == 200){
            let state = e.data.status
 
            if(state == 0){
-             try {
 
-               iosObject.closeHtml();
-             } catch (error) {
-
-               // alert(error);
-             }
              this.Toast('请登录')
-
+             iosObject.goLogin();
 //                 alert('请登录。。。')
 //               alert('0')
            }else{

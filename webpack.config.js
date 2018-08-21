@@ -143,7 +143,7 @@ const config = {
         // target: 'http://59.110.169.175:8080',
             target: 'http://test.bjyishubiyeji.com:8080',
         //  target: 'https://yddwechat.bjyishubiyeji.com:8443',
-          //666
+        //   target:'http://songzhan.tunnel.qydev.com',
 
         changeOrigin: true,
         secure: false
@@ -154,14 +154,6 @@ const config = {
         changeOrigin: true,
         secure: false
       } ,
-    //   '/admin/*': {
-    //     // target: 'http://test.bjyishubiyeji.com',
-    //     // target: 'http://59.110.169.175:8080',
-    //     // target:'http://songzhan.tunnel.qydev.com',
-    //   changeOrigin: true,
-    //   secure: false
-    // }
-  
     }
   }
 

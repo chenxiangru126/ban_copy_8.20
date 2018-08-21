@@ -24,7 +24,7 @@
              this.name = name
              setTimeout(()=>{
               this.userGetinfo()
-              },500)
+              },5000)
         },
 
         mounted(){
@@ -73,10 +73,10 @@
                         }
                     if(a==1){  
                         url= location.protocol+'//'+location.hostname
-                           +'/mall/invoice_order/payForcopyright.do?number='+name+'&money=1'+'&payWay=1'+'&token='+this.token;
+                           +'/mall/invoice_order/payForcopyright.do?number='+name+'&money=0.01'+'&payWay=1'+'&token='+this.token;
                     }else if(a==2){
                          url= location.protocol+'//'+location.hostname
-                               +'/mall/invoice_order/payForcopyright.do?number='+name+'&money=1'+'&payWay=2'+'&token='+this.token;
+                               +'/mall/invoice_order/payForcopyright.do?number='+name+'&money=0.01'+'&payWay=2'+'&token='+this.token;
                         
                     }
                     iosObject.showCheckOrderBtn(location.origin+'/index.html#/make')
